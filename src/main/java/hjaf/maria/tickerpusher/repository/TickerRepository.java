@@ -3,5 +3,5 @@ package hjaf.maria.tickerpusher.repository;
 import hjaf.maria.tickerpusher.model.TickerWrapper;
 
 public interface TickerRepository {
-    void push(TickerWrapper ticker);
+    void push(TickerWrapper tickerWrapper);
 }

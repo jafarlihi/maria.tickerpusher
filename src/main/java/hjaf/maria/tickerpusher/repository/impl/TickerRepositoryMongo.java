@@ -14,23 +14,23 @@ public class TickerRepositoryMongo implements TickerRepository {
 
     private static final Logger logger = LogManager.getLogger(TickerRepositoryMongo.class);
 
-    private static MongoClient mongoClient;
-    private static MongoDatabase mongoDatabase;
-    private static MongoCollection mongoCollection;
-    String database;
-    String collection;
+    private MongoClient client;
+    private MongoDatabase database;
+    private MongoCollection collection;
+    private String databaseName;
+    private String collectionName;
 
-    public TickerRepositoryMongo(String host, int port, String database, String collection) {
-        this.database = database;
-        this.collection = collection;
-        mongoClient = new MongoClient(host, port);
-        mongoDatabase = mongoClient.getDatabase(database);
+    public TickerRepositoryMongo(String host, int port, String databaseName, String collectionName) {
+        this.databaseName = databaseName;
+        this.collectionName = collectionName;
+        client = new MongoClient(host, port);
+        database = client.getDatabase(databaseName);
         try {
-            mongoDatabase.createCollection(collection);
+            database.createCollection(collectionName);
         } catch (MongoCommandException ex) {
             logger.info("Collection already exists? Exception: " + ex.getMessage());
         }
-        mongoCollection = mongoDatabase.getCollection(collection);
+        collection = database.getCollection(collectionName);
     }
 
     public void push(TickerWrapper tickerWrapper) {
@@ -46,6 +46,6 @@ public class TickerRepositoryMongo implements TickerRepository {
                 .append("quoteVolume", tickerWrapper.getTicker().getQuoteVolume())
                 .append("volume", tickerWrapper.getTicker().getVolume())
                 .append("vwap", tickerWrapper.getTicker().getVwap());
-        mongoCollection.insertOne(document);
+        collection.insertOne(document);
     }
 }

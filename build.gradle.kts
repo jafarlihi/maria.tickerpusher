@@ -21,6 +21,8 @@ dependencies {
     compile("org.apache.logging.log4j", "log4j-core", "2.12.1")
     compile("org.slf4j", "slf4j-log4j12", "1.7.28")
     compile("org.mongodb", "mongo-java-driver", "3.11.0")
+    compile("io.prometheus", "simpleclient", "0.6.0")
+    compile("io.prometheus", "simpleclient_pushgateway", "0.6.0")
     compile("org.knowm.xchange", "xchange-core", "4.3.21")
     compile("org.knowm.xchange", "xchange-kraken", "4.3.21")
 }

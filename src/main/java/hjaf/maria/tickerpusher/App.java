@@ -3,6 +3,7 @@ package hjaf.maria.tickerpusher;
 import hjaf.maria.tickerpusher.model.TickerWrapper;
 import hjaf.maria.tickerpusher.repository.TickerRepository;
 import hjaf.maria.tickerpusher.repository.impl.TickerRepositoryMongo;
+import hjaf.maria.tickerpusher.repository.impl.TickerRepositoryPrometheus;
 import hjaf.maria.tickerpusher.service.DaggerServiceComponent;
 import hjaf.maria.tickerpusher.service.MarketDataProvider;
 import hjaf.maria.tickerpusher.service.ServiceComponent;
@@ -32,7 +33,8 @@ public class App {
                 )
                 .build();
 
-        TickerRepository tickerRepository = new TickerRepositoryMongo("127.0.0.1", 27017, "maria-1", "tickers");
+        //TickerRepository tickerRepository = new TickerRepositoryMongo("127.0.0.1", 27017, "maria-1", "tickers");
+        TickerRepository tickerRepository = new TickerRepositoryPrometheus("127.0.0.1", 9091);
         MarketDataProvider marketDataProvider = serviceComponent.getMarketDataProvider();
         while (true) {
             try {
